@@ -6,7 +6,7 @@ public class Cliente extends Pessoa {
     private String email;
     private String cpf;
 
-    // Composicao entre Animal e Cliente
+    // Composicao entre -> Animal e Cliente
     private List<Animal> animais = new ArrayList<>();
 
     public Cliente(String nome, int id, String cpf, int telefone, String email) {
@@ -16,11 +16,8 @@ public class Cliente extends Pessoa {
         this.email = email;
     }
 
-    public void adicionarAnimal(Animal animal) {
+    public Animal adicionarAnimal(Animal animal) {
         animais.add(animal);
-    }
-
-    public void Funcional() {
-        System.out.println("Cliente esta funcionando");
+        return animal;
     }
 }

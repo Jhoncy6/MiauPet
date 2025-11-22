@@ -4,8 +4,7 @@
     private String nomeServico;
     private double preco;
 
-    public Servico(int id, String nomeServico, double preco) {
-        this.id = id;
+    public Servico(String nomeServico, double preco) {
         this.nomeServico = nomeServico;
         this.preco = preco;
     }

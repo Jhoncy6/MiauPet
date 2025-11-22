@@ -3,10 +3,11 @@ public class Animal {
     private String nome;
     private String especie;
     private String raca;
-    private Cliente dono; // Composicao de volta
 
-    public Animal(int id, String nome, String especie, String raca, Cliente dono) {
-        this.id = id;
+    // Composicao de volta -> Cliente e Animal
+    private Cliente dono;
+
+    public Animal(String nome, String especie, String raca, Cliente dono) {
         this.nome = nome;
         this.especie = especie;
         this.raca = raca;
