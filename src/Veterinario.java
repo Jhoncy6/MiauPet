@@ -1,14 +1,14 @@
 public class Veterinario extends Pessoa {
-
     private String especialidade;
     private String crmv;
 
-    public Veterinario() {
-    }
-
-    public Veterinario(int id, String nome, String especialidade, String crmv) {
-        super(id, nome);
+    public Veterinario(String nome, int id,  String cpf, String especialidade, String crmv) {
+        super(nome, id);
         this.especialidade = especialidade;
         this.crmv = crmv;
+    }
+
+    public void Funcional() {
+        System.out.println("Veterinario esta funcionando");
     }
 }
