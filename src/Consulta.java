@@ -9,9 +9,6 @@ public class Consulta {
 
     private Servico servico;
 
-    public Consulta() {
-    }
-
     public Consulta(int id, LocalDateTime dia, String motivo, String comentarios) {
         this.id = id;
         this.dia = dia;
