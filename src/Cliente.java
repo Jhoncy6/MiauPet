@@ -1,7 +1,13 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cliente extends Pessoa {
     private int telefone;
     private String email;
     private String cpf;
+
+    // Composicao entre Animal e Cliente
+    private List<Animal> animais = new ArrayList<>();
 
     public Cliente(String nome, int id, String cpf, int telefone, String email) {
         super(nome,id);
@@ -10,4 +16,11 @@ public class Cliente extends Pessoa {
         this.email = email;
     }
 
+    public void adicionarAnimal(Animal animal) {
+        animais.add(animal);
+    }
+
+    public void Funcional() {
+        System.out.println("Cliente esta funcionando");
+    }
 }
