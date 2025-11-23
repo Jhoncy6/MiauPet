@@ -8,4 +8,16 @@
         this.nomeServico = nomeServico;
         this.preco = preco;
     }
-}
+
+     public String getNomeServico() {
+         return nomeServico;
+     }
+
+     public double getPreco() {
+         return preco;
+     }
+
+     public int getId() {
+         return id;
+     }
+ }

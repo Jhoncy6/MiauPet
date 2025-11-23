@@ -10,7 +10,17 @@ public class Main {
 
         Consulta consulta1 = new Consulta(1, "Doente", LocalDateTime.of(2025, 11, 30, 15, 0) ,"Filhote, foi pego na rua recentemente, pode ter alguma alergia", cliente1, veterinario1);
 
-        Servico servico1 = new Servico("RaioX geral", 10.0);
+        Servico servico1 = new Servico("RaioX geral", 50.0);
+        Servico servico2 = new Servico("Tosa", 30.0);
+
+        CatalogoServicos catalogo = new CatalogoServicos();
+
+        catalogo.adicionarServico(servico1);
+        catalogo.adicionarServico(servico2);
+
+        catalogo.listarServicos();
+
         consulta1.adicionarServico(servico1);
+        consulta1.adicionarServico(servico2);
     }
 }
