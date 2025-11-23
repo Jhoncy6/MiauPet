@@ -13,6 +13,9 @@ public class Main {
         Servico servico1 = new Servico("RaioX geral", 50.0);
         Servico servico2 = new Servico("Tosa", 30.0);
 
+        ServicoDAO dao = new ServicoDAO();
+        dao.inserirServico(servico2);
+
         CatalogoServicos catalogo = new CatalogoServicos();
 
         catalogo.adicionarServico(servico1);
