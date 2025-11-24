@@ -1,4 +1,5 @@
 
+import Services.AnimalDAO;
 import Services.ClienteDAO;
 import Services.ServicoDAO;
 import Services.VeterinarioDAO;
@@ -34,8 +35,13 @@ public class Main {
 
 
         ClienteDAO clienteDAO = new ClienteDAO();
-        Cliente cliente1 = new Cliente("João", 1, "99999-9999", 1212123, "joao@x.com");  // CRIACAO DO CLIENTE
+        Cliente cliente1 = new Cliente("João", "99999-9999", 1212123, "joao@x.com");  // CRIACAO DO CLIENTE
         clienteDAO.inserirCliente(cliente1); // ADD Cliente no BANCO
+
+
+        AnimalDAO animalDAO = new AnimalDAO();
+        Animal Rex = new Animal("Rex", "Cachorro", "buldog", cliente1);
+        animalDAO.inserirAnimal(Rex);
 
 
         Veterinario vet1 = new Veterinario("Dr. Carlos",  "123123", "Clinico geral", "CRMV-1234"); // CRIACAO DO VET
