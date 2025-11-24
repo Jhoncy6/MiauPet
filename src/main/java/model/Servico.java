@@ -1,7 +1,6 @@
 package model;
 
 public class Servico {
-
     private int id;
     private String nomeServico;
     private double preco;
@@ -17,7 +16,6 @@ public class Servico {
         this.preco = preco;
     }
 
-
     public int getId() {
         return id;
     }
@@ -30,15 +28,8 @@ public class Servico {
         return nomeServico;
     }
 
-    public void setNomeServico(String nomeServico) {
-        this.nomeServico = nomeServico;
-    }
-
     public double getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
-        this.preco = preco;
-    }
 }

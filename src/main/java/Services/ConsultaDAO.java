@@ -50,7 +50,7 @@ public class ConsultaDAO extends ConnectionDAO {
         }
     }
 
-    private void inserirServicosDaConsulta(Consulta consulta) {
+    public void inserirServicosDaConsulta(Consulta consulta) {
 
         connectToDb();
         String sql = "INSERT INTO Consulta_has_Servico (idConsulta, idServico) VALUES (?, ?)";

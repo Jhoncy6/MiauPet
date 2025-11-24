@@ -51,5 +51,7 @@ public class Main {
         Consulta consulta1 = new Consulta("Dor de vabeça", LocalDateTime.of(2025, 11, 30, 15, 0), "MUITO", cliente1, vet1 );
         ConsultaDAO  consultaDAO = new ConsultaDAO();
         consultaDAO.inserirConsulta(consulta1);
+        consultaDAO.inserirServicosDaConsulta(consulta1);
+
         }
     }
