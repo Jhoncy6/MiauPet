@@ -2,14 +2,19 @@ package model;
 
 public abstract class Pessoa {
     private String nome;
-    private int id;
+    private String cpf;
 
-    public Pessoa(String nome, int id) {
+
+    public Pessoa(String nome, String cpf) {
         this.nome = nome;
-        this.id = id;
+        this.cpf = cpf;
     }
 
     public String getNome() {
         return nome;
+    };
+
+    public String getCpf() {
+        return cpf;
     }
 }
