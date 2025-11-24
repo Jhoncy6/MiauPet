@@ -1,12 +1,15 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class Cliente extends Pessoa {
     private int telefone;
     private String email;
     private String cpf;
 
-    // Composicao entre -> Animal e Cliente
+    // Composicao entre -> model.Animal e model.Cliente
     private List<Animal> animais = new ArrayList<>();
 
     public Cliente(String nome, int id, String cpf, int telefone, String email) {
