@@ -1,5 +1,7 @@
 package Services;
+
 import model.Cliente;
+
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -39,6 +41,40 @@ public class ClienteDAO extends ConnectionDAO {
             }
         }
     }
+
+    public Cliente buscarClientePorCpf(String cpf) {
+        connectToDb();
+        String sql = "SELECT * FROM Cliente WHERE cpf = ?";
+        try {
+            pst = connection.prepareStatement(sql);
+            pst.setString(1, cpf);
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                String nome = rs.getString("nome");
+                int telefone = rs.getInt("telefone");
+                String email = rs.getString("email");
+
+                Cliente cliente = new Cliente(nome, cpf, telefone, email);
+                cliente.setId(id);
+                return cliente;
+            } else {
+                return null;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao buscar Cliente por CPF: " + e.getMessage());
+            return null;
+        } finally {
+            try {
+                if (pst != null) pst.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar recursos: " + e.getMessage());
+            }
+        }
+    };
 }
 
 
