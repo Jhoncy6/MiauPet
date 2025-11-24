@@ -8,4 +8,8 @@ public abstract class Pessoa {
         this.nome = nome;
         this.id = id;
     }
+
+    public String getNome() {
+        return nome;
+    }
 }
