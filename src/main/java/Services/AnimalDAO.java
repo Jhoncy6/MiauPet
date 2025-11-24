@@ -5,7 +5,9 @@ import java.sql.SQLException;
 
 public class AnimalDAO extends ConnectionDAO {
 
-    public boolean inserirAnimal(Animal animal, int idDono) {
+    public boolean inserirAnimal(Animal animal) {
+        int idDono = animal.getDono().getId();
+
         connectToDb();
         String sql = "INSERT INTO Animal (nome, especie, raca, idCliente) VALUES (?,?,?,?)";
         try {
@@ -29,8 +31,5 @@ public class AnimalDAO extends ConnectionDAO {
         }
     }
 
-    public boolean inserirAnimal(Animal animal) {
-        int idDono = animal.getDono().getId();
-        return inserirAnimal(animal, idDono);
-    }
+
 }

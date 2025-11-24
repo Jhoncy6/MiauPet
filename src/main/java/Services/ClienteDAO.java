@@ -1,9 +1,11 @@
 package Services;
 
 import model.Cliente;
+import model.Consulta;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 public class ClienteDAO extends ConnectionDAO {
 
@@ -58,6 +60,7 @@ public class ClienteDAO extends ConnectionDAO {
 
                 Cliente cliente = new Cliente(nome, cpf, telefone, email);
                 cliente.setId(id);
+
                 return cliente;
             } else {
                 return null;

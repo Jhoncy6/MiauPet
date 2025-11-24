@@ -1,8 +1,11 @@
 package Services;
 
+import model.Cliente;
 import model.Consulta;
 import model.Servico;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.util.List;
 
 public class ConsultaDAO extends ConnectionDAO {
 
@@ -68,4 +71,6 @@ public class ConsultaDAO extends ConnectionDAO {
             System.out.println("Erro ao inserir serviços da consulta: " + e.getMessage());
         }
     }
+
+
 }

@@ -12,6 +12,8 @@ public class Main {
         AnimalDAO animalDAO = new AnimalDAO();
         VeterinarioDAO vetDAO = new VeterinarioDAO();
 
+        Veterinario vet1 = new Veterinario("Dr. Carlos",  "123123", "Clinico geral", "CRMV-1234");
+
         Servico s1  = new Servico("Raio-X geral", 50.0);
         Servico s2  = new Servico("Tosa completa", 30.0);
         Servico s3  = new Servico("Vacinação", 60.0);
@@ -33,9 +35,9 @@ public class Main {
         servicoDAO.inserirServico(s9);
         servicoDAO.inserirServico(s10);
 
-//       servicoDAO.listarServicos();
-
         int opcao = -1;
+        int opcaoLogado = -1;
+        int opcaoAnimalEscolhida = -1;
 
         do {
             System.out.println(" --------------------------------------------------- ");
@@ -56,7 +58,89 @@ public class Main {
                     String cpfBusca = scanner.nextLine();
                     Cliente clienteEncontrado = clienteDAO.buscarClientePorCpf(cpfBusca);
                     if (clienteEncontrado != null) {
-                        System.out.println(clienteEncontrado.getNome() + " Entrou com sucesso");
+                        do {
+                            System.out.println(" ------------------------------------------------- ");
+                            System.out.println(clienteEncontrado.getNome() + " Entrou com sucesso");
+                            System.out.println(" Abaixo mostra as opções disponiveis dentro da nossa Loja :");
+                            System.out.println(" - Gostaria de Marcar uma consulta? ( Digite 1 )");
+                            System.out.println(" - Ver consultas já criadas ( Digite 2 )");
+                            System.out.println(" --------------------------------------------------- ");
+                            System.out.print(" -> Opcao Escolhida : ");
+                            opcaoLogado = scanner.nextInt();
+                            scanner.nextLine();
+
+
+
+                            switch (opcaoLogado) {
+                                case 1:
+                                    System.out.println(" ------------------------------------------------- ");
+                                    System.out.println(" Para começar, gosariamos de saber : ");
+                                    System.out.println(" Animal já cadastrado ( Digite 1 )");
+                                    System.out.println(" Cadastrar um animal (Digite 2 ) ");
+                                    System.out.println(" Para sair ( digite 0 ) ");
+                                    System.out.println(" -> Opcao Escolhida : ");
+                                    opcaoAnimalEscolhida = scanner.nextInt();
+                                    scanner.nextLine();
+                                    do {
+                                        switch (opcaoAnimalEscolhida) {
+                                            case 1:
+
+                                            break;
+
+                                            case 2:
+                                                System.out.println(" ------------------------------------------------- ");
+                                                System.out.println(" Cadastro do Pet");
+                                                System.out.println(" Digite o nome dele(a):");
+                                                String nomeAnimal = scanner.nextLine();
+                                                System.out.println(" Digite a especie ( Cachorro, gato ... ):");
+                                                String especieAnimal = scanner.nextLine();
+                                                System.out.println(" Digite a raça dele(a):");
+                                                String racaAnimal = scanner.nextLine();
+                                                Animal animal = new Animal(nomeAnimal, especieAnimal, racaAnimal, clienteEncontrado);
+                                                System.out.println(" Perfeito, registrado com sucesso");
+                                                System.out.println(" ------------------------------------------------- ");
+                                                System.out.println(" Vamos criar uma consulta para o(a) " + animal.getNome());
+                                                System.out.println("Diga-nos o motivo da Consulta:");
+                                                String motivoDaConsultaAnimal = scanner.nextLine();
+                                                System.out.println("Algum comentario sobre o animal ( Alergia...)");
+                                                String comentarioAnimal = scanner.nextLine();
+                                                Consulta consulta = new Consulta(motivoDaConsultaAnimal,LocalDateTime.of(2025, 11, 30, 15, 0), comentarioAnimal, clienteEncontrado, vet1 );
+                                                System.out.println("Abaixo temos uma lista de serviço");
+                                                servicoDAO.listarServicos();
+
+
+                                            break;
+
+                                            case 0:
+                                                System.out.println(" ------------------------------------------------- ");
+                                                System.out.println(" Até logo, tchau" + clienteEncontrado.getNome());
+                                                System.out.println(" ------------------------------------------------- ");
+                                            break;
+
+                                            default:
+                                                System.out.println("Opção invaldia, digite 1 ( Marcar Consulta ) , 2 ( ver consultas ) ou 0 ( sair )");
+
+                                                break;
+                                        }
+
+
+                                    }while (opcaoAnimalEscolhida != 0);
+
+                                case 2:
+
+
+                                case 0:
+                                    System.out.println(" ------------------------------------------------- ");
+                                    System.out.println(" Até logo, tchau" + clienteEncontrado.getNome());
+                                    System.out.println(" ------------------------------------------------- ");
+                                default:
+                                    System.out.println("Opção invaldia, digite 1 ( Marcar Consulta ) , 2 ( ver consultas ) ou 0 ( sair )");
+
+                                    break;
+                            }
+
+                        } while (opcaoLogado != 0);
+
                     }else {
                         System.out.println("Erro ao fazer login, CPF de usuario não encontrado");
                     }
@@ -95,39 +179,15 @@ public class Main {
         } while (opcao != 0);
         scanner.close();
 
-//        Cliente cliente1 = new Cliente("João", "123", 123, "joao@x.com");  // CRIACAO DO CLIENTE
-//        Cliente cliente2 = new Cliente("João", "2", 123, "joao@x.com");  // CRIACAO DO CLIENTE
-//
-//        clienteDAO.inserirCliente(cliente1); // ADD Cliente no BANCO
-//        clienteDAO.inserirCliente(cliente2);
-//
-//
-//        System.out.print("➡️ Digite o CPF para podermos continuar:");
-//        String cpfBusca = scanner.nextLine();
-//        Cliente clienteEncontrado = clienteDAO.buscarClientePorCpf(cpfBusca);
-//
-//        if (clienteEncontrado != null) {
-//            System.out.println("\n✅ SUCESSO: Cliente encontrado!");
-//            System.out.println("   Nome: " + clienteEncontrado.getNome());
-//            System.out.println("   Telefone: " + clienteEncontrado.getTelefone());
-//            System.out.println("   ID: " + clienteEncontrado.getId());
-//            System.out.println("   Email: " + clienteEncontrado.getEmail());
-//        } else {
-//            System.out.println("\n❌ ERRO: Cliente não encontrado para o CPF digitado.");
-//            System.out.println("   A função retornou 'null', conforme esperado para um CPF inexistente ou incorreto.");
-//        }
+//        Cliente cliente1 = new Cliente();
 //
 //
 //
-//        Animal Rex = new Animal("Rex", "Cachorro", "buldog", cliente1);
-//        animalDAO.inserirAnimal(Rex);
 //
-//
-//        Veterinario vet1 = new Veterinario("Dr. Carlos",  "123123", "Clinico geral", "CRMV-1234");
 //
 //        vetDAO.inserirVeterinario(vet1);
 //
-//        Consulta consulta1 = new Consulta("Dor de vabeça", LocalDateTime.of(2025, 11, 30, 15, 0), "MUITO", cliente1, vet1 );
+//
 //        ConsultaDAO consultaDAO = new ConsultaDAO();
 //        consultaDAO.inserirConsulta(consulta1);
 //        consultaDAO.inserirServicosDaConsulta(consulta1);
