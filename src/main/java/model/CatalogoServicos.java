@@ -1,5 +1,8 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class CatalogoServicos {
     private List<Servico> servicos = new ArrayList<>();

@@ -1,3 +1,5 @@
+package model;
+
 public class Veterinario extends Pessoa {
     private String especialidade;
     private String crmv;
@@ -9,6 +11,6 @@ public class Veterinario extends Pessoa {
     }
 
     public void Funcional() {
-        System.out.println("Veterinario esta funcionando");
+        System.out.println("model.Veterinario esta funcionando");
     }
 }
