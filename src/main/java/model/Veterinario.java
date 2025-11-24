@@ -4,8 +4,8 @@ public class Veterinario extends Pessoa {
     private String especialidade;
     private String crmv;
 
-    public Veterinario(String nome, int id,  String cpf, String especialidade, String crmv) {
-        super(nome, id);
+    public Veterinario(String nome, String cpf, String especialidade, String crmv) {
+        super(nome, cpf);
         this.especialidade = especialidade;
         this.crmv = crmv;
     }
