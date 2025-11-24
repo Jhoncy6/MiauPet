@@ -69,8 +69,6 @@ public class Main {
                             opcaoLogado = scanner.nextInt();
                             scanner.nextLine();
 
-
-
                             switch (opcaoLogado) {
                                 case 1:
                                     System.out.println(" ------------------------------------------------- ");
@@ -103,7 +101,7 @@ public class Main {
                                                 System.out.println("Diga-nos o motivo da Consulta:");
                                                 String motivoDaConsultaAnimal = scanner.nextLine();
                                                 System.out.println("Algum comentario sobre o animal ( Alergia...)");
-                                                String comentarioAnimal = scanner.nextLine();
+                                                   String comentarioAnimal = scanner.nextLine();
                                                 Consulta consulta = new Consulta(motivoDaConsultaAnimal,LocalDateTime.of(2025, 11, 30, 15, 0), comentarioAnimal, clienteEncontrado, vet1 );
                                                 System.out.println("Abaixo temos uma lista de serviço");
                                                 servicoDAO.listarServicos();

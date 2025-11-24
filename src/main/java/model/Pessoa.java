@@ -1,9 +1,9 @@
 package model;
 
 public abstract class Pessoa {
-    private String nome;
-    private String cpf;
-    private int id;
+    protected String nome;
+    protected String cpf;
+    protected int id;
 
     public Pessoa(String nome, String cpf ) {
         this.nome = nome;
