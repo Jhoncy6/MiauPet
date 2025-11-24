@@ -62,7 +62,7 @@ public class ConsultaDAO extends ConnectionDAO {
             pst = connection.prepareStatement(sql);
 
             for (Servico servico : consulta.getServicos()) {
-                pst.setInt(1, consulta.getId()); // <-- usa ID REAL agora
+                pst.setInt(1, consulta.getId());
                 pst.setInt(2, servico.getId());
                 pst.execute();
             }
