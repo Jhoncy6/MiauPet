@@ -1,7 +1,5 @@
 package Services;
-
 import model.Servico;
-
 import java.sql.SQLException;
 
 public class ServicoDAO extends ConnectionDAO {

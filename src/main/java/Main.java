@@ -1,7 +1,7 @@
 
 import Services.ServicoDAO;
+import Services.VeterinarioDAO;
 import model.*;
-
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
@@ -11,8 +11,11 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         Cliente cliente1 = new Cliente("João", 1, "99999-9999", 1212123, "joao@x.com");
-        Veterinario vet1 = new Veterinario("Dr. Carlos", 1, "123123", "Clinico geral", "CRMV-1234");
-        Veterinario vet2 = new Veterinario("Dra. Carla", 2, "123548", "sim", "CRMV-56342");
+        Veterinario vet1 = new Veterinario("Dr. Carlos",  "123123", "Clinico geral", "CRMV-1234");
+        Veterinario vet2 = new Veterinario("Dra. Carla", "123548", "Clinico", "CRMV-56342");
+
+        VeterinarioDAO vetDAO = new VeterinarioDAO();
+        vetDAO.inserirVeterinario(vet1);
 
         Animal rex = new Animal("Rex", "Cachorro", "Buldog", cliente1);
         cliente1.adicionarAnimal(rex);
