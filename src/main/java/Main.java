@@ -8,7 +8,6 @@ import model.*;
 public class Main {
     public static void main(String[] args) {
 
-
         ServicoDAO servicoDAO = new ServicoDAO();
 
         Servico s1  = new Servico("Raio-X geral", 50.0);
