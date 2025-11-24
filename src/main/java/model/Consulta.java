@@ -14,7 +14,7 @@ public class Consulta {
     private List<Servico> servicos = new ArrayList<>();
 
 
-    public Consulta(int id, String motivo, LocalDateTime dia, String comentarios, Cliente cliente, Veterinario veterinario) {
+    public Consulta( String motivo, LocalDateTime dia, String comentarios, Cliente cliente, Veterinario veterinario) {
         this.dia = dia;
         this.motivo = motivo;
         this.comentarios = comentarios;
@@ -22,8 +22,37 @@ public class Consulta {
         this.veterinario = veterinario;
     }
 
-    public void adicionarServico(Servico servico) {
-        servicos.add(servico);
+    public int getId() {
+        return id;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDia() {
+        return dia;
+    }
+
+    public String getComentarios() {
+        return comentarios;
+    }
+
+    public Veterinario getVeterinario() {
+        return veterinario;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public List<Servico> getServicos() {
+        return servicos;
+    }
+
 
 }

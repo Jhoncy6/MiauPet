@@ -1,9 +1,8 @@
 
-import Services.AnimalDAO;
-import Services.ClienteDAO;
-import Services.ServicoDAO;
-import Services.VeterinarioDAO;
+import Services.*;
 import model.*;
+
+import java.time.LocalDateTime;
 
 public class Main {
     public static void main(String[] args) {
@@ -48,6 +47,11 @@ public class Main {
         vetDAO.inserirVeterinario(vet1); // ADD VET no BANCO
 
        vetDAO.listarVeterinarios(); // JA ESTA PRINTANDO TODOS SO VET
+
+        Consulta consulta1 = new Consulta("Dor de vabeça", LocalDateTime.of(2025, 11, 30, 15, 0), "MUITO", cliente1, vet1 );
+        ConsultaDAO  consultaDAO = new ConsultaDAO();
+        consultaDAO.inserirConsulta(consulta1);
+        consultaDAO.inserirServicosDaConsulta(consulta1);
 
         }
     }
