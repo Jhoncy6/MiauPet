@@ -22,7 +22,11 @@ public class Cliente extends Pessoa {
         return animal;
     }
 
-    public String getCpf() {
-        return super.getCpf(); // ou return this.cpf;
+    public int getTelefone() {
+        return telefone;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

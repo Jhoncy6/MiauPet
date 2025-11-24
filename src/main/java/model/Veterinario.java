@@ -15,8 +15,4 @@ public class Veterinario extends Pessoa {
     public String getCrmv() {
         return crmv;
     }
-
-    public void Funcional() {
-        System.out.println("model.Veterinario esta funcionando");
-    }
 }

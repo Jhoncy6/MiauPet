@@ -17,7 +17,6 @@ public class VeterinarioDAO extends ConnectionDAO {
             pst.setString(4, vet.getCrmv());
             pst.execute();
             return true;
-
         } catch (SQLException e) {
             System.out.println("Erro ao inserir Veterinário: " + e.getMessage());
             return false;
