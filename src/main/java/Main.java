@@ -1,6 +1,7 @@
 
 import Services.ServicoDAO;
 import model.*;
+
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
@@ -25,16 +26,16 @@ public class Main {
                 vet1
         );
 
-        Servico s1  = new Servico(5, "Raio-X geral", 50.0);
-        Servico s2  = new Servico(4, "Tosa completa", 30.0);
-        Servico s3  = new Servico(2, "Vacinação", 60.0);
-        Servico s4  = new Servico(3, "Banho", 40.0);
-        Servico s5  = new Servico(6, "Exame de sangue", 120.0);
-        Servico s6  = new Servico(8, "Limpeza de ouvido", 25.0);
-        Servico s7  = new Servico(7, "Ultrassom abdominal", 150.0);
-        Servico s8  = new Servico(9, "Corte de unhas", 18.0);
+        Servico s1 = new Servico(5, "Raio-X geral", 50.0);
+        Servico s2 = new Servico(4, "Tosa completa", 30.0);
+        Servico s3 = new Servico(2, "Vacinação", 60.0);
+        Servico s4 = new Servico(3, "Banho", 40.0);
+        Servico s5 = new Servico(6, "Exame de sangue", 120.0);
+        Servico s6 = new Servico(8, "Limpeza de ouvido", 25.0);
+        Servico s7 = new Servico(7, "Ultrassom abdominal", 150.0);
+        Servico s8 = new Servico(9, "Corte de unhas", 18.0);
         Servico s9 = new Servico(10, "Aplicação de antipulgas", 35.0);
-        Servico s10  = new Servico(1, "Consulta geral", 80.0);
+        Servico s10 = new Servico(1, "Consulta geral", 80.0);
 
         ServicoDAO dao = new ServicoDAO();
         dao.inserirServico(s1);
@@ -48,18 +49,6 @@ public class Main {
         dao.inserirServico(s9);
         dao.inserirServico(s10);
 
-        CatalogoServicos catalogo = new CatalogoServicos();
-
-        catalogo.adicionarServico(s1);
-        catalogo.adicionarServico(s2);
-        catalogo.adicionarServico(s3);
-        catalogo.adicionarServico(s4);
-        catalogo.adicionarServico(s5);
-        catalogo.adicionarServico(s6);
-        catalogo.adicionarServico(s7);
-        catalogo.adicionarServico(s8);
-        catalogo.adicionarServico(s9);
-        catalogo.adicionarServico(s10);
 
         int opcao;
 
@@ -78,7 +67,7 @@ public class Main {
             switch (opcao) {
 
                 case 1:
-                    catalogo.listarServicos();
+                    dao.listarServicos();
                     break;
 
                 case 2:
