@@ -1,6 +1,5 @@
 package Services;
 import model.Cliente;
-import model.Servico;
 import java.sql.SQLException;
 
 public class ClienteDAO extends ConnectionDAO {

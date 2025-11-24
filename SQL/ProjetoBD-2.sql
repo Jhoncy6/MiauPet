@@ -27,6 +27,7 @@ CREATE TABLE Animal (
 CREATE TABLE Veterinario (
 	id INT NOT NULL AUTO_INCREMENT,
     nome varchar(45),
+    cpf varchar(45),
     especialidade varchar(45),
     crmv varchar(45),
     primary key (id)
@@ -59,7 +60,5 @@ CREATE TABLE Consulta_has_Servico(
     FOREIGN KEY (idServico) REFERENCES Servico(id) ON DELETE CASCADE
 );
 
-SELECT preco, nomeServico
-FROM Servico;
-
+SELECT * FROM Veterinario;
 
