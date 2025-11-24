@@ -5,14 +5,14 @@ import java.util.List;
 
 
 public class Cliente extends Pessoa {
+
     private int telefone;
     private String email;
 
-    // Composicao entre -> model.Animal e model.Cliente
     private List<Animal> animais = new ArrayList<>();
 
-    public Cliente(String nome, String cpf, int telefone, String email) {
-        super(nome,cpf);
+    public Cliente(String nome, int id, String cpf, int telefone, String email) {
+        super(nome, cpf);
         this.telefone = telefone;
         this.email = email;
     }
@@ -22,12 +22,7 @@ public class Cliente extends Pessoa {
         return animal;
     }
 
-
-    public String getEmail() {
-        return email;
-    }
-
-    public int getTelefone() {
-        return telefone;
+    public String getCpf() {
+        return super.getCpf(); // ou return this.cpf;
     }
 }
