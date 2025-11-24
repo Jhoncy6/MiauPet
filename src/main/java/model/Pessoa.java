@@ -11,6 +11,10 @@ public abstract class Pessoa {
 
     public String getNome() {
         return nome;
+    };
+
+    public String getCpf() {
+        return cpf;
     }
     public String getCpf() {
         return cpf;
