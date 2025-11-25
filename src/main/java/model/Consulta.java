@@ -22,6 +22,18 @@ public class Consulta {
         this.veterinario = veterinario;
     }
 
+    public void adicionarServico(Servico servico) {
+        this.servicos.add(servico);
+    }
+
+    public double calcularTotal() {
+        double total = 0;
+        for (Servico s : servicos) {
+            total += s.getPreco();
+        }
+        return total;
+    }
+
     public int getId() {
         return id;
     }
