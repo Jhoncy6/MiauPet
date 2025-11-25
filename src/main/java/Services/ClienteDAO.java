@@ -2,37 +2,40 @@ package Services;
 
 import model.Cliente;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClienteDAO extends ConnectionDAO {
 
-    public int inserirCliente(Cliente cliente) {
+    public List<Cliente> mostrarTodosClientes() {
         connectToDb();
-        String sql = "INSERT INTO Cliente (nome, cpf, telefone, email) VALUES (?,?,?,?)";
-
+        String sql = "SELECT * FROM Cliente";
+        List<Cliente> clientes = new ArrayList<>();
         try {
-            pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            pst.setString(1, cliente.getNome());
-            pst.setString(2, cliente.getCpf());
-            pst.setInt(3, cliente.getTelefone());
-            pst.setString(4, cliente.getEmail());
-            pst.execute();
+            pst = connection.prepareStatement(sql);
+            rs = pst.executeQuery();
 
-            rs = pst.getGeneratedKeys();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nome = rs.getString("nome");
+                String cpf = rs.getString("cpf");
+                int telefone = rs.getInt("telefone");
+                String email = rs.getString("email");
 
-            if (rs.next()) {
-                int idGerado = rs.getInt(1);
-                cliente.setId(idGerado);
-                return idGerado;
-            } else {
-                return -1;
+                Cliente cliente = new Cliente(nome, cpf, telefone, email);
+                cliente.setId(id);
+
+                clientes.add(cliente);
             }
 
+            return clientes;
+
         } catch (SQLException e) {
-            System.out.println("Erro ao inserir Cliente: " + e.getMessage());
-            return -1;
+            System.out.println("Erro ao listar todos os clientes: " + e.getMessage());
+            return new ArrayList<>(); // melhor que retornar null
         } finally {
             try {
+                if (rs != null) rs.close();
                 if (pst != null) pst.close();
                 if (connection != null) connection.close();
             } catch (SQLException e) {
@@ -68,16 +71,13 @@ public class ClienteDAO extends ConnectionDAO {
             return null;
         } finally {
             try {
+                if (rs != null) rs.close();
                 if (pst != null) pst.close();
                 if (connection != null) connection.close();
             } catch (SQLException e) {
                 System.out.println("Erro ao fechar recursos: " + e.getMessage());
             }
         }
-    };
-
+    } // não precisa desse ponto e vírgula extra aqui
 
 }
-
-
-

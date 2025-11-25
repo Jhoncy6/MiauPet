@@ -24,4 +24,6 @@ public class Servico {
         return preco;
     }
 
+    public void setId(int id) {
+    }
 }
