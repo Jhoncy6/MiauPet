@@ -85,7 +85,7 @@ public class Main {
             System.out.println("--------- Menu do Cliente ---------");
             System.out.println("1 - Marcar Nova Consulta");
             System.out.println("2 - Mostrar Consultas");
-            System.out.println("0 - Deslogar");
+            System.out.println("0 - Voltar para o Menu ( Cadastro / Login )");
             System.out.print("Escolha: ");
             opcao = lerInteiro();
 
@@ -111,7 +111,7 @@ public class Main {
             System.out.println("--------- Marcar Consulta ---------");
             System.out.println("1 - Cadastrar um animal + consulta ");
             System.out.println("2 - Criar uma consulta para um animal ja cadastrado");
-            System.out.println("0 - Deslogar");
+            System.out.println("0 - Voltar para o menu do Cliente");
             System.out.print("Escolha: ");
             opcao = lerInteiro();
 
@@ -135,7 +135,7 @@ public class Main {
         System.out.println("--------- Criacao de um Animal ---------");
         System.out.print("Nome do animal: ");
         String nomeAnimal = scanner.nextLine();
-        System.out.print("Espécie (Cachorro,Gato...) ");
+        System.out.print("Espécie (Cachorro,Gato...): ");
         String especie = scanner.nextLine();
         System.out.print("Raça: ");
         String raca = scanner.nextLine();
@@ -150,6 +150,8 @@ public class Main {
     private static void mostrarAnimal ( Cliente cliente ) {
 
         List<Animal> animaisEncontradosBanco = animalDAO.buscarAnimalDono(cliente);
+
+        cliente.getAnimais().clear();
 
         for (Animal animal : animaisEncontradosBanco) {
             cliente.adicionarAnimal(animal);
@@ -167,10 +169,10 @@ public class Main {
     }
 
     public static void criarConsulta( Cliente cliente ) {
-        System.out.print("--------- Criar uma consulta ---------");
+        System.out.println("--------- Criar uma consulta ---------");
         System.out.print("Motivo da consulta: ");
         String motivo = scanner.nextLine();
-        System.out.print("Alguma observacao? ( ex: alergia a alguma medicamento");
+        System.out.print("Alguma observacao? ( ex: alergia a alguma medicamento ): ");
         String comentario = scanner.nextLine();
         Consulta consulta = new Consulta(motivo, LocalDateTime.now(), comentario, cliente, vetPadrao);
     }

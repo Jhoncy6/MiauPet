@@ -43,11 +43,13 @@ public class AnimalDAO extends ConnectionDAO {
             rs = pst.executeQuery();
 
             while (rs.next()) {
+                int id  = rs.getInt("id");
                 String nome = rs.getString("nome");
                 String especie = rs.getString("especie");
                 String raca = rs.getString("raca");
 
                 Animal animalEncontrado = new Animal(nome, especie, raca, dono);
+                animalEncontrado.setId(id);
                 lista.add(animalEncontrado);
             }
         }catch(SQLException e){

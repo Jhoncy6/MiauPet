@@ -13,7 +13,6 @@ public class Consulta {
     private Veterinario veterinario;
     private List<Servico> servicos = new ArrayList<>();
 
-
     public Consulta( String motivo, LocalDateTime dia, String comentarios, Cliente cliente, Veterinario veterinario) {
         this.dia = dia;
         this.motivo = motivo;
@@ -65,6 +64,5 @@ public class Consulta {
     public List<Servico> getServicos() {
         return servicos;
     }
-
 
 }
