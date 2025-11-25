@@ -38,10 +38,10 @@ CREATE TABLE Consulta (
     dia datetime,
     motivo varchar(45),
     comentarios varchar(300),
-	idCliente INT,
+	idAnimal INT,
     idVeterinario INT,
 	primary key (id),
-	foreign key (idCliente) REFERENCES Cliente(id) ON DELETE CASCADE,
+	foreign key (idAnimal) REFERENCES Animal(id) ON DELETE CASCADE,
     foreign key (idVeterinario) REFERENCES Veterinario(id) ON DELETE CASCADE
 );
 
@@ -60,5 +60,5 @@ CREATE TABLE Consulta_has_Servico(
     FOREIGN KEY (idServico) REFERENCES Servico(id) ON DELETE CASCADE
 );
 
-SELECT * FROM Veterinario;
+SELECT * FROM Consulta;
 

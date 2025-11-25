@@ -4,25 +4,35 @@ import model.Animal;
 import model.Cliente;
 
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AnimalDAO extends ConnectionDAO {
 
-    public boolean inserirAnimal(Animal animal) {
+    public int inserirAnimal(Animal animal) {
         connectToDb();
         String sql = "INSERT INTO Animal (nome, especie, raca, idCliente) VALUES (?,?,?,?)";
         try {
-            pst = connection.prepareStatement(sql);
+            pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, animal.getNome());
             pst.setString(2, animal.getEspecie());
             pst.setString(3, animal.getRaca());
             pst.setInt(4, animal.getDono().getId());
             pst.execute();
-            return true;
+
+            rs = pst.getGeneratedKeys();
+            if (rs.next()) {
+                int idGerado = rs.getInt(1);
+                animal.setId(idGerado);
+                return idGerado;
+            } else {
+                System.out.println("Erro, id animal nao gerado");
+                return -1;
+            }
         } catch (SQLException e) {
             System.out.println("Erro ao inserir Animal: " + e.getMessage());
-            return false;
+            return -1;
         } finally {
             try {
                 if (pst != null) pst.close();

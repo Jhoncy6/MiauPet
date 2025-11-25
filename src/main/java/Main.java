@@ -8,10 +8,14 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
     private static ClienteDAO clienteDAO = new ClienteDAO();
     private static AnimalDAO animalDAO = new AnimalDAO();
+    private static ConsultaDAO consultaDAO = new ConsultaDAO();
     private static ServicoDAO servicoDAO = new ServicoDAO();
+    private static VeterinarioDAO veterinarioDAO = new VeterinarioDAO();
+
     private static Veterinario vetPadrao = new Veterinario("Dr. Carlos", "123123", "Clinico", "CRMV-1234");
 
     public static void main(String[] args) {
+        configurarVeterinarioPadrao();
         int opcao = -1;
         do {
             exibirMenuPrincipal();
@@ -83,8 +87,8 @@ public class Main {
         int opcao = -1;
         do {
             System.out.println("--------- Menu do Cliente ---------");
-            System.out.println("1 - Marcar Nova Consulta");
-            System.out.println("2 - Mostrar Consultas");
+            System.out.println("1 - Marcar Nova Consulta para um Animal");
+            System.out.println("2 - Mostrar Consultas de um Animal");
             System.out.println("0 - Voltar para o Menu ( Cadastro / Login )");
             System.out.print("Escolha: ");
             opcao = lerInteiro();
@@ -144,11 +148,11 @@ public class Main {
         cliente.adicionarAnimal(animal);
         animalDAO.inserirAnimal(animal);
         System.out.println(animal.getNome() + " cadastrado com sucesso!");
-        criarConsulta(cliente);
+        criarConsulta(cliente, animal);
     }
 
     private static void mostrarAnimal ( Cliente cliente ) {
-
+        int idAnimalEscolhido = -1;
         List<Animal> animaisEncontradosBanco = animalDAO.buscarAnimalDono(cliente);
 
         cliente.getAnimais().clear();
@@ -160,21 +164,28 @@ public class Main {
         if (cliente.getAnimais().isEmpty()) {
             System.out.println( cliente.getNome() + " voce nao poussui nenhum animal cadastrado!" );
         } else {
-            System.out.println("--- Seus Animais ---");
+            System.out.println("-------- Seus Animais --------");
             for (int i = 0; i < cliente.getAnimais().size(); i++) {
                 Animal a = cliente.getAnimais().get(i);
                 System.out.println((i + 1) + ". " + a.getNome() + " (" + a.getEspecie() + ")");
             }
+            System.out.println("-> Para qual Animal voce deseja criar uma consulta? (Escolha o numero apresentado antes do seu nome)");
+            idAnimalEscolhido = lerInteiro();
+
+            Animal animalSelecionado = cliente.getAnimais().get(idAnimalEscolhido - 1);
+            criarConsulta(cliente, animalSelecionado);
         }
     }
 
-    public static void criarConsulta( Cliente cliente ) {
+    public static void criarConsulta( Cliente cliente, Animal animal ) {
         System.out.println("--------- Criar uma consulta ---------");
         System.out.print("Motivo da consulta: ");
         String motivo = scanner.nextLine();
         System.out.print("Alguma observacao? ( ex: alergia a alguma medicamento ): ");
         String comentario = scanner.nextLine();
-        Consulta consulta = new Consulta(motivo, LocalDateTime.now(), comentario, cliente, vetPadrao);
+        Consulta consulta = new Consulta(motivo, LocalDateTime.now(), comentario, cliente, vetPadrao, animal);
+        consultaDAO.inserirConsulta(consulta);
+        System.out.println("Consulta criada com sucesso!");
     }
 
     private static void mostrarConsulta(Cliente cliente) {
@@ -189,6 +200,18 @@ public class Main {
         } catch (Exception e) {
             scanner.nextLine();
             return -1;
+        }
+    }
+
+    private static void configurarVeterinarioPadrao() {
+
+        int idGerado = veterinarioDAO.inserirVeterinario(vetPadrao);
+
+        if (idGerado != -1) {
+            vetPadrao.setId(idGerado); // Atualiza o objeto Java com o ID do banco
+            System.out.println("Sistema iniciado. Veterinário padrão validado (ID: " + idGerado + ")");
+        } else {
+            System.out.println("Aviso: Não foi possível registrar o veterinário padrão. O banco está ligado?");
         }
     }
 

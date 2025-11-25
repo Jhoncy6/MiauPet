@@ -12,6 +12,8 @@ public class Servico {
 
     public Servico(int id, String nomeServico, double preco) {
         this.id = id;
+        this.nomeServico = nomeServico;
+        this.preco = preco;
     }
 
     public int getId() { return id; }

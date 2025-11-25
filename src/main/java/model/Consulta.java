@@ -11,26 +11,30 @@ public class Consulta {
 
     private Cliente cliente;
     private Veterinario veterinario;
+    private Animal animal;
     private List<Servico> servicos = new ArrayList<>();
 
-    public Consulta( String motivo, LocalDateTime dia, String comentarios, Cliente cliente, Veterinario veterinario) {
+    public Consulta( String motivo, LocalDateTime dia, String comentarios, Cliente cliente, Veterinario veterinario, Animal animal) {
         this.dia = dia;
         this.motivo = motivo;
         this.comentarios = comentarios;
         this.cliente = cliente;
         this.veterinario = veterinario;
+        this.animal = animal;
     }
 
-    public void adicionarServico(Servico servico) {
-        this.servicos.add(servico);
+    public Consulta(int id, String motivo, LocalDateTime dia, String comentarios, Cliente cliente, Veterinario veterinario, Animal animal) {
+        this.id = id;
+        this.dia = dia;
+        this.motivo = motivo;
+        this.comentarios = comentarios;
+        this.cliente = cliente;
+        this.veterinario = veterinario;
+        this.animal = animal;
     }
 
-    public double calcularTotal() {
-        double total = 0;
-        for (Servico s : servicos) {
-            total += s.getPreco();
-        }
-        return total;
+    public Animal getAnimal() {
+        return animal;
     }
 
     public int getId() {

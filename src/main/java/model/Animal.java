@@ -6,7 +6,6 @@ public class Animal {
     private String especie;
     private String raca;
 
-    // Agregação de volta -> Cliente e Animal
     private Cliente dono;
 
     public Animal(String nome, String especie, String raca,Cliente dono) {
@@ -16,9 +15,19 @@ public class Animal {
         this.dono = dono;
     }
 
+    public Animal(String nome, String especie, String raca,Cliente dono, int id) {
+        this.nome = nome;
+        this.especie = especie;
+        this.raca = raca;
+        this.dono = dono;
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }
+
+    public int getId() { return id; }
 
     public String getEspecie() {
         return especie;

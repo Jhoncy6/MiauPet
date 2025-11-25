@@ -1,8 +1,10 @@
 package Services;
 
-import model.Cliente;
+
 import model.Consulta;
 import model.Servico;
+import model.Veterinario;
+import model.Animal;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,9 +14,7 @@ public class ConsultaDAO extends ConnectionDAO {
     public int inserirConsulta(Consulta consulta) {
 
         connectToDb();
-
-        String sql = "INSERT INTO Consulta (dia, motivo, comentarios, idCliente, idVeterinario) " +
-                "VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Consulta (dia, motivo, comentarios, idVeterinario, idAnimal) VALUES (?, ?, ?, ?, ?)";
 
         try {
             pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -23,7 +23,7 @@ public class ConsultaDAO extends ConnectionDAO {
             pst.setString(2, consulta.getMotivo());
             pst.setString(3, consulta.getComentarios());
             pst.setInt(4, consulta.getCliente().getId());
-            pst.setInt(5, consulta.getVeterinario().getId());
+            pst.setInt(5, consulta.getAnimal().getId());
 
             pst.execute();
 
@@ -31,17 +31,14 @@ public class ConsultaDAO extends ConnectionDAO {
             if (rs.next()) {
                 int idGerado = rs.getInt(1);
                 consulta.setId(idGerado);
+                inserirServicosDaConsulta(consulta);
                 return idGerado;
             } else {
                 return -1;
             }
-
-            //inserirServicosDaConsulta(consulta);
-
         } catch (SQLException e) {
             System.out.println("Erro ao inserir consulta: " + e.getMessage());
             return -1;
-
         } finally {
             try {
                 if (pst != null) pst.close();
@@ -68,6 +65,13 @@ public class ConsultaDAO extends ConnectionDAO {
 
         } catch (SQLException e) {
             System.out.println("Erro ao inserir serviços da consulta: " + e.getMessage());
+        } finally {
+            try {
+                if (pst != null) pst.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar recursos: " + e.getMessage());
+            }
         }
     }
 
