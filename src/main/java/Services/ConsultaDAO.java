@@ -27,7 +27,6 @@ public class ConsultaDAO extends ConnectionDAO {
 
             pst.execute();
 
-            // PEGANDO O ID GERADO
             ResultSet rs = pst.getGeneratedKeys();
             if (rs.next()) {
                 int idGerado = rs.getInt(1);

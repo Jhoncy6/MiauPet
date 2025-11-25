@@ -144,7 +144,7 @@ public class Main {
         cliente.adicionarAnimal(animal);
         animalDAO.inserirAnimal(animal);
         System.out.println(animal.getNome() + " cadastrado com sucesso!");
-        criarConsulta(cliente, animal);
+        criarConsulta(cliente);
     }
 
     private static void mostrarAnimal ( Cliente cliente ) {
@@ -166,7 +166,7 @@ public class Main {
         }
     }
 
-    public static void criarConsulta( Cliente cliente, Animal animal ) {
+    public static void criarConsulta( Cliente cliente ) {
         System.out.print("--------- Criar uma consulta ---------");
         System.out.print("Motivo da consulta: ");
         String motivo = scanner.nextLine();
