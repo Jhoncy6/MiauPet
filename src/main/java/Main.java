@@ -1,6 +1,7 @@
 import Services.*;
 import model.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -99,7 +100,7 @@ public class Main {
                     System.out.println("Deslogando...");
                     break;
                 default:
-                    System.out.println("Opção inválida.");
+                    System.out.println("Voltar para a tela de Cadastro/Login");
             }
         } while (opcao != 0);
     }
@@ -117,9 +118,15 @@ public class Main {
             switch (opcao) {
                 case 1:
                     criarAnimal(cliente);
-
                     break;
-
+                case 2:
+                    mostrarAnimal(cliente);
+                    break;
+                case 0:
+                    System.out.println("Voltar para o menu!");
+                    break;
+                default:
+                    System.out.println("Opção inválida.");
             }
         } while (opcao != 0);
     }
@@ -140,11 +147,30 @@ public class Main {
         criarConsulta(cliente, animal);
     }
 
+    private static void mostrarAnimal ( Cliente cliente ) {
+
+        List<Animal> animaisEncontradosBanco = animalDAO.buscarAnimalDono(cliente);
+
+        for (Animal animal : animaisEncontradosBanco) {
+            cliente.adicionarAnimal(animal);
+        }
+
+        if (cliente.getAnimais().isEmpty()) {
+            System.out.println( cliente.getNome() + " voce nao poussui nenhum animal cadastrado!" );
+        } else {
+            System.out.println("--- Seus Animais ---");
+            for (int i = 0; i < cliente.getAnimais().size(); i++) {
+                Animal a = cliente.getAnimais().get(i);
+                System.out.println((i + 1) + ". " + a.getNome() + " (" + a.getEspecie() + ")");
+            }
+        }
+    }
+
     public static void criarConsulta( Cliente cliente, Animal animal ) {
-        System.out.println("--------- Criar uma consulta ---------");
-        System.out.println("Motivo da consulta: ");
+        System.out.print("--------- Criar uma consulta ---------");
+        System.out.print("Motivo da consulta: ");
         String motivo = scanner.nextLine();
-        System.out.println("Alguma observacao? ( ex: alergia a alguma medicamento");
+        System.out.print("Alguma observacao? ( ex: alergia a alguma medicamento");
         String comentario = scanner.nextLine();
         Consulta consulta = new Consulta(motivo, LocalDateTime.now(), comentario, cliente, vetPadrao);
     }
@@ -152,7 +178,6 @@ public class Main {
     private static void mostrarConsulta(Cliente cliente) {
 
     }
-
 
     private static int lerInteiro() {
         try {

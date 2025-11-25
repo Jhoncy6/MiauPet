@@ -6,7 +6,7 @@ public class Cliente extends Pessoa {
     private int telefone;
     private String email;
 
-    private List<Animal> animais;
+    private List<Animal> animais =  new ArrayList<>();
 
     public Cliente(String nome, String cpf, int telefone, String email) {
         super(nome, cpf);
