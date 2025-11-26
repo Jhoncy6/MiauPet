@@ -66,7 +66,7 @@ public class Main {
                     listarAnimais_SelecionarAnimal(idClienteAtual);
                     break;
                 case 2:
-                    System.out.println("(Implementar lógica de editar cliente aqui)");
+                    System.out.println("(Editar o cliente)");
                     break;
                 case 0:
                     System.out.println("Voltando ao menu principal...");
@@ -137,7 +137,7 @@ public class Main {
 
         do {
             System.out.println("------- Animal: " + animalSelecionado.getNome() + " -------");
-            System.out.println("1 - Adminstrar consultas "); // Mostrar as consultas pelo id do Animal -> editar consulta ( add mais servicos, editar motivo e comentarios)
+            System.out.println("1 - Adminstrar consultas "); // Mostrar as consultas pelo id do Animal -> editar consulta ( de acorodo como  id escolhido. Add mais servicos, editar motivo e comentarios)
             System.out.println("2 - Editar animal"); // Editar animal pelo ID  ( editar nome, especie, raca )
             System.out.println("0 - Voltar");
 
