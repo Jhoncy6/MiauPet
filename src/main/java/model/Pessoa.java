@@ -22,6 +22,13 @@ public abstract class Pessoa {
         return id;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

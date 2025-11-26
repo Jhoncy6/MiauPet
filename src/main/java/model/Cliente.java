@@ -1,5 +1,4 @@
 package model;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente extends Pessoa {
@@ -11,6 +10,13 @@ public class Cliente extends Pessoa {
     public Cliente(String nome, String cpf, int telefone, String email) {
         super(nome, cpf);
         this.telefone = telefone;
+        this.email = email;
+    }
+
+    public void setTelefone(int telefone) {
+        this.telefone = telefone;
+    }
+    public void setEmail(String email) {
         this.email = email;
     }
 

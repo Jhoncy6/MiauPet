@@ -4,21 +4,32 @@ import java.sql.SQLException;
 
 public class ServicoDAO extends ConnectionDAO {
 
-    public boolean inserirServico(Servico servico) {
+    public Servico buscarServicoPorId(int idServico) {
         connectToDb();
-        String sql = "INSERT INTO Servico (preco, nomeServico) VALUES (?,?)";
+        String sql = "SELECT id, preco, nomeServico FROM Servico WHERE id = ?";
 
         try {
             pst = connection.prepareStatement(sql);
-            pst.setDouble(1, servico.getPreco());
-            pst.setString(2, servico.getNomeServico());
-            pst.execute();
-            return true;
+            pst.setInt(1, idServico);
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                double preco = rs.getDouble("preco");
+                String nome = rs.getString("nomeServico");
+
+                Servico servico = new Servico(nome, preco);
+                servico.setId(id);
+                return servico;
+            }
+            return null;
+
         } catch (SQLException e) {
-            System.out.println("Erro ao inserir Servico: " + e.getMessage());
-            return false;
+            System.out.println("Erro ao buscar serviço por ID: " + e.getMessage());
+            return null;
         } finally {
             try {
+                if (rs != null) rs.close();
                 if (pst != null) pst.close();
                 if (connection != null) connection.close();
             } catch (SQLException e) {
@@ -27,16 +38,18 @@ public class ServicoDAO extends ConnectionDAO {
         }
     }
 
+
     public boolean listarServicos() {
         connectToDb();
-        String sql = "SELECT preco, nomeServico FROM Servico";
+        String sql = "SELECT * FROM Servico";
         try {
             pst = connection.prepareStatement(sql);
             rs = pst.executeQuery();
             while (rs.next()) {
+                int id = rs.getInt("id");
                 double preco = rs.getDouble("preco");
                 String nome = rs.getString("nomeServico");
-                System.out.println(nome + " | R$ " + preco);
+                System.out.println("ID: " + id + " - " + nome + " | R$ " + preco);
             }
             return true;
         } catch (SQLException e) {
@@ -52,4 +65,53 @@ public class ServicoDAO extends ConnectionDAO {
         }
     }
 
+    public boolean atualizarServico(Servico servico) {
+        connectToDb();
+        String sql = "UPDATE Servico SET nomeServico = ?, preco = ? WHERE id = ?";
+
+        try {
+            pst = connection.prepareStatement(sql);
+            pst.setString(1, servico.getNomeServico());
+            pst.setDouble(2, servico.getPreco());
+            pst.setInt(3, servico.getId());
+
+            int linhas = pst.executeUpdate();
+            return linhas > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao atualizar serviço: " + e.getMessage());
+            return false;
+        } finally {
+            try {
+                if (pst != null) pst.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar recursos: " + e.getMessage());
+            }
+        }
+    }
+
+    public boolean removerServicoPorId(int id) {
+        connectToDb();
+        String sql = "DELETE FROM Servico WHERE id = ?";
+
+        try {
+            pst = connection.prepareStatement(sql);
+            pst.setInt(1, id);
+
+            int linhasAfetadas = pst.executeUpdate();
+            return linhasAfetadas > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao remover serviço: " + e.getMessage());
+            return false;
+        } finally {
+            try {
+                if (pst != null) pst.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
