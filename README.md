@@ -157,7 +157,7 @@ O projeto possui duas versões principais, cada uma numa branch diferente:
 ## Projeto de BD ( Banco de Dados )
  
 - [João Carlos de Oliveira Mexias - matricula 475](https://www.github.com/Jhoncy6)
-- [Rodrigo Guimarães Pinheiro Pascolato - matircula 388 ](https://www.github.com/Jhoncy6)
+- [Rodrigo Guimarães Pinheiro Pascolato - matircula 388 ](https://github.com/kiwizinho91)
 
 
 ## Projeto de POO ( Programação orientada a objetos )
