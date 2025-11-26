@@ -11,11 +11,12 @@ public class Main {
     private static ConsultaDAO consultaDAO = new ConsultaDAO();
     private static ServicoDAO servicoDAO = new ServicoDAO();
     private static VeterinarioDAO veterinarioDAO = new VeterinarioDAO();
-
     private static Veterinario vetPadrao = new Veterinario("Dr. Carlos", "123123", "Clinico", "CRMV-1234");
 
     public static void main(String[] args) {
         configurarVeterinarioPadrao();
+        configurarServicoPadrao();
+
         int opcao = -1;
         do {
             exibirMenuPrincipal();
@@ -184,12 +185,109 @@ public class Main {
         System.out.print("Alguma observacao? ( ex: alergia a alguma medicamento ): ");
         String comentario = scanner.nextLine();
         Consulta consulta = new Consulta(motivo, LocalDateTime.now(), comentario, cliente, vetPadrao, animal);
-        consultaDAO.inserirConsulta(consulta);
-        System.out.println("Consulta criada com sucesso!");
+
+        System.out.println("--- Adicionar Serviços ---");
+        List<Servico> todosServicos = servicoDAO.listarTodosServicos();
+
+        System.out.println("Serviços disponíveis:");
+        for (Servico s : todosServicos) {
+            System.out.println(s.getId() + " - " + s.getNomeServico() + " (R$ " + s.getPreco() + ")");
+        }
+
+        boolean adicionando = true;
+
+        while (adicionando) {
+
+            System.out.print("Digite o numero do serviço para adicionar: ");
+
+            int idServicoEscolhido = lerInteiro();
+
+            Servico servicoSelecionado = null;
+
+            for (Servico s : todosServicos) {
+                if (s.getId() == idServicoEscolhido) {
+                    servicoSelecionado = s;
+                    break;
+                }
+            }
+
+            if (servicoSelecionado != null) {
+                consulta.adicionarServico(servicoSelecionado);
+                System.out.println("Serviço " + servicoSelecionado.getNomeServico() + " adicionado!");
+            } else {
+                System.out.println("Serviço não encontrado.");
+            }
+
+            System.out.print("Deseja adicionar mais um serviço? (1- Sim / 0- Não): ");
+            int resposta = lerInteiro();
+
+            if (resposta != 1) {
+                adicionando = false;
+            }
+        }
+
+        int idGerado = consultaDAO.inserirConsulta(consulta);
+        if (idGerado != -1) {
+            System.out.println("Consulta criada com sucesso! ID: " + idGerado);
+        } else {
+            System.out.println("Erro ao salvar consulta.");
+        }
     }
 
     private static void mostrarConsulta(Cliente cliente) {
+        System.out.println("--------- Histórico de Consultas ---------");
+        List<Animal> animais = animalDAO.buscarAnimalDono(cliente);
 
+        if (animais.isEmpty()) {
+            System.out.println( cliente.getNome() + " voce não possui nenhum animal cadastrados.");
+            return;
+        }
+
+        System.out.println("De qual animal deseja ver as consultas?");
+        for (int i = 0; i < animais.size(); i++) {
+            Animal a = animais.get(i);
+            System.out.println((i + 1) + ". " + a.getNome());
+        }
+        System.out.print("Escolha o animal : ");
+        int indice = lerInteiro();
+
+        if (indice < 1 || indice > animais.size()) {
+            System.out.println("Opção inválida.");
+            return;
+        }
+
+        Animal animalSelecionado = animais.get(indice - 1);
+
+        List<Consulta> historico = consultaDAO.buscarConsultasPorIdAnimal(animalSelecionado.getId());
+
+        if (historico.isEmpty()) {
+            System.out.println("Nenhuma consulta encontrada para " + animalSelecionado.getNome());
+        } else {
+            System.out.println("=== Consultas de " + animalSelecionado.getNome() + " do Dono " + animalSelecionado.getDono().getNome() + " ===");
+            for (Consulta c : historico) {
+                System.out.println("------------------------------------------------");
+                System.out.println("Criacao da consulta: " + c.getDia());
+                System.out.println("Motivo da consulta : " + c.getMotivo());
+                System.out.println("Veterinário: " + c.getVeterinario().getNome() + " (" + c.getVeterinario().getEspecialidade() + ")");
+                System.out.println("Comentários da consulta  : " + c.getComentarios());
+
+                List<Servico> servicosRealizados = c.getServicos();
+                if (!servicosRealizados.isEmpty()) {
+                    System.out.println("Serviços realizados:");
+                    double total = 0;
+                    for (Servico s : servicosRealizados) {
+                        System.out.println("  - " + s.getNomeServico() + ": R$ " + s.getPreco());
+                        total += s.getPreco();
+                    }
+                    System.out.println("  Total: R$ " + total);
+                } else {
+                    System.out.println(" (Nenhum serviço registrado) ");
+                }
+            }
+            System.out.println("------------------------------------------------");
+        }
+        System.out.println("Pressione 0 para voltar...");
+        scanner.nextLine();
     }
 
     private static int lerInteiro() {
@@ -208,11 +306,33 @@ public class Main {
         int idGerado = veterinarioDAO.inserirVeterinario(vetPadrao);
 
         if (idGerado != -1) {
-            vetPadrao.setId(idGerado); // Atualiza o objeto Java com o ID do banco
-            System.out.println("Sistema iniciado. Veterinário padrão validado (ID: " + idGerado + ")");
-        } else {
-            System.out.println("Aviso: Não foi possível registrar o veterinário padrão. O banco está ligado?");
+            vetPadrao.setId(idGerado);
         }
+    }
+
+    private static void configurarServicoPadrao() {
+
+        if (!servicoDAO.listarTodosServicos().isEmpty()) {
+            return;
+        }
+
+        List<Servico> servicosPadores = List.of(
+                new Servico("Raio-X geral", 50.0),
+                new Servico("Tosa completa", 30.0),
+                new Servico("Vacinação", 60.0),
+                new Servico("Banho", 40.0),
+                new Servico("Exame de sangue", 120.0),
+                new Servico("Limpeza de ouvido", 25.0),
+                new Servico("Ultrassom abdominal", 150.0),
+                new Servico("Corte de unhas", 18.0),
+                new Servico("Aplicação de antipulgas", 35.0),
+                new Servico("Consulta geral", 80.0)
+        );
+
+        for (Servico servico : servicosPadores) {
+            servicoDAO.inserirServico(servico);
+        }
+
     }
 
 }

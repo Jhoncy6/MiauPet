@@ -33,6 +33,10 @@ public class Consulta {
         this.animal = animal;
     }
 
+    public void adicionarServico(Servico servico) {
+        this.servicos.add(servico);
+    }
+
     public Animal getAnimal() {
         return animal;
     }
