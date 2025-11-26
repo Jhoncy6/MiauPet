@@ -92,7 +92,7 @@ public class ConsultaDAO extends ConnectionDAO {
 
                 Veterinario vet = new Veterinario(
                         rs.getString("nomeVet"),
-                        rs.getString( "cpf"),
+                        "",
                         rs.getString("especialidade"),
                         rs.getString("crmv")
                 );
