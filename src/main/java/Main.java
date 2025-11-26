@@ -16,8 +16,8 @@ public class Main {
         int opcaoPrincipal = -1;
 
         do {
-            System.out.println("\n======= MiAu Pet - PAINEL ADM =======");
-            System.out.println("1 - Administrar Serviços");
+            System.out.println("======= MiAu Pet - PAINEL ADM =======");
+            System.out.println("1 - Administrar Serviços"); // Lista os servicos, consegue adicionar mais e editar os que existem ( valor e preco )
             System.out.println("2 - Administrar Clientes e Animais");
             System.out.println("0 - Sair do Sistema");
 
@@ -28,7 +28,7 @@ public class Main {
 //                    administrarServicos();
                     break;
                 case 2:
-                    administrarClientes(); // A tua lógica antiga vem para aqui
+                    administrarClientes();
                     break;
                 case 0:
                     System.out.println("A sair do sistema...");
@@ -42,19 +42,12 @@ public class Main {
         scanner.close();
     }
 
-    // --- LÓGICA DE SERVIÇOS (NOVO) ---
-//    private static void administrarServicos() {
-//        System.out.println("\n--- Administração de Serviços ---");
-//
-//        List<Servico> servicos = servicoDAO.listarTodosServicos();
-//        for (Servico s : servicos) {
-//            System.out.println("ID: " + s.getId() + " | " + s.getNomeServico() + " (R$ " + s.getPreco() + ")");
-//        }
-//        System.out.println("(Implementar aqui: Criar, Editar ou Remover Serviço)");
-//        System.out.println("Pressione ENTER para voltar...");
-//        scanner.nextLine();
-//    }
-
+    private static void exibirMenuCliente(int idClienteAtual) {
+        System.out.println("------- Cliente ID " + idClienteAtual + " ------");
+        System.out.println("1 - Listar e Administrar Animais");
+        System.out.println("2 - Editar Cliente"); // Selecionar o CLIENTE PELO ID -> Editar ( nome, telefone, email, cpf ) ou deletar
+        System.out.println("0 - Voltar");
+    }
 
     private static void administrarClientes() {
         int idClienteAtual = selecionarCliente();
@@ -76,7 +69,6 @@ public class Main {
                     System.out.println("(Implementar lógica de editar cliente aqui)");
                     break;
                 case 0:
-
                     System.out.println("Voltando ao menu principal...");
                     break;
                 default:
@@ -105,13 +97,6 @@ public class Main {
         }
 
         return id;
-    }
-
-    private static void exibirMenuCliente(int idClienteAtual) {
-        System.out.println("------- Cliente ID " + idClienteAtual + " ------");
-        System.out.println("1 - Listar e Administrar Animais");
-        System.out.println("2 - Editar Cliente");
-        System.out.println("0 - Voltar");
     }
 
     private static void listarAnimais_SelecionarAnimal(int idCliente) {
@@ -152,8 +137,8 @@ public class Main {
 
         do {
             System.out.println("------- Animal: " + animalSelecionado.getNome() + " -------");
-            System.out.println("1 - Adminstrar consultas ");
-            System.out.println("2 - Editar animal");
+            System.out.println("1 - Adminstrar consultas "); // Mostrar as consultas pelo id do Animal -> editar consulta ( add mais servicos, editar motivo e comentarios)
+            System.out.println("2 - Editar animal"); // Editar animal pelo ID  ( editar nome, especie, raca )
             System.out.println("0 - Voltar");
 
             opcaoMenuAnimal = lerInteiro("Escolha uma opção: ");
