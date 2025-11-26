@@ -17,7 +17,7 @@ public class Main {
 
         do {
             System.out.println("======= MiAu Pet - PAINEL ADM =======");
-            System.out.println("1 - Administrar Serviços"); // Lista os servicos, consegue adicionar mais e editar os que existem ( valor e preco )
+            System.out.println("1 - Administrar Serviços");
             System.out.println("2 - Administrar Clientes e Animais");
             System.out.println("0 - Sair do Sistema");
 
@@ -64,12 +64,7 @@ public class Main {
                     }
                     break;
                 case 2:
-
-
-
-
-
-
+                    adicionarNovoServico();
                     break;
                 case 0:
                     System.out.println("Voltando ao menu principal...");
@@ -143,9 +138,23 @@ public class Main {
         } while (opcao != 0);
     }
 
-    private static void adicionarNovoServico(){
+    private static void adicionarNovoServico() {
+        System.out.println("--------- Adicionar novo serviço ---------");
 
+        System.out.print("Nome do serviço: ");
+        String nome = scanner.nextLine();
+
+        double preco = lerDouble("Preço do serviço: ");
+
+        Servico novo = new Servico(nome, preco);
+
+        if (servicoDAO.inserirServico(novo)) {
+            System.out.println("Serviço \"" + nome + "\" cadastrado com sucesso por R$ " + preco + "!");
+        } else {
+            System.out.println("Erro ao cadastrar o serviço.");
+        }
     }
+
     private static void exibirMenuCliente(int idClienteAtual) {
         System.out.println("------- Cliente ID " + idClienteAtual + " ------");
         System.out.println("1 - Listar e Administrar Animais");
@@ -319,7 +328,7 @@ public class Main {
         do {
             System.out.println("------- Animal: " + animalSelecionado.getNome() + " -------");
             System.out.println("1 - Adminstrar consultas "); // Mostrar as consultas pelo id do Animal -> editar consulta ( de acorodo como  id escolhido. Add mais servicos, editar motivo e comentarios)
-            System.out.println("2 - Editar animal"); // Editar animal pelo ID  ( editar nome, especie, raca )
+            System.out.println("2 - Editar animal");
             System.out.println("0 - Voltar");
 
             opcaoMenuAnimal = lerInteiro("Escolha uma opção: ");
