@@ -25,7 +25,6 @@ public class AnimalDAO extends ConnectionDAO {
                 String especie = rs.getString("especie");
                 String raca = rs.getString("raca");
 
-                // se o construtor do Animal espera Cliente, você pode passar null aqui ou ajustar
                 Animal animal = new Animal(nome, especie, raca, null);
                 animal.setId(id);
                 lista.add(animal);
@@ -44,6 +43,59 @@ public class AnimalDAO extends ConnectionDAO {
         }
 
         return lista;
+    }
+
+    public boolean atualizarAnimal(Animal animal) {
+        connectToDb();
+        String sql = "UPDATE Animal SET nome = ?, especie = ?, raca = ? WHERE id = ?";
+        boolean sucesso = false;
+
+        try {
+            pst = connection.prepareStatement(sql);
+            pst.setString(1, animal.getNome());
+            pst.setString(2, animal.getEspecie());
+            pst.setString(3, animal.getRaca());
+            pst.setInt(4, animal.getId());
+
+            int rowsAffected = pst.executeUpdate();
+            sucesso = rowsAffected > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao atualizar animal: " + e.getMessage());
+        } finally {
+            try {
+                if (pst != null) pst.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar conexão: " + e.getMessage());
+            }
+        }
+        return sucesso;
+    }
+
+    public boolean removerAnimalPorId(int idAnimal) {
+        connectToDb();
+        String sql = "DELETE FROM Animal WHERE id = ?";
+        boolean sucesso = false;
+
+        try {
+            pst = connection.prepareStatement(sql);
+            pst.setInt(1, idAnimal);
+
+            int rowsAffected = pst.executeUpdate();
+            sucesso = rowsAffected > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao remover animal: " + e.getMessage());
+        } finally {
+            try {
+                if (pst != null) pst.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar conexão: " + e.getMessage());
+            }
+        }
+        return sucesso;
     }
 
 }

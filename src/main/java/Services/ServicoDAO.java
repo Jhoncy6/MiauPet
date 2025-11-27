@@ -1,6 +1,8 @@
 package Services;
 import model.Servico;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ServicoDAO extends ConnectionDAO {
 
@@ -62,6 +64,37 @@ public class ServicoDAO extends ConnectionDAO {
                 System.out.println("Erro ao fechar recursos: " + e.getMessage());
             }
         }
+    }
+
+    public List<Servico> listarTodosServicos() {
+        List<Servico> lista = new ArrayList<>();
+        connectToDb();
+        String sql = "SELECT * FROM Servico";
+
+        try {
+            pst = connection.prepareStatement(sql);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                double preco = rs.getDouble("preco");
+                String nome = rs.getString("nomeServico");
+
+                Servico s = new Servico(nome, preco);
+                s.setId(id);
+                lista.add(s);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar serviços: " + e.getMessage());
+        } finally {
+            try {
+                if (pst != null) pst.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar: " + e.getMessage());
+            }
+        }
+        return lista;
     }
 
     public boolean atualizarServico(Servico servico) {

@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList; // Precisas deste import
 import java.util.List;
 
 public class Consulta {
@@ -9,21 +10,32 @@ public class Consulta {
     private String motivo;
     private String comentarios;
 
-    private Animal animal;         // AGORA TEM UM ANIMAL
+    private Cliente cliente;
+    private Animal animal;
     private Veterinario veterinario;
-    private List<Servico> servicos;
+    private List<Servico> servicos = new ArrayList<>();
 
-    public Consulta(LocalDateTime dia, String motivo, String comentarios,
-                    Animal animal, Veterinario veterinario, List<Servico> servicos) {
-        this.dia = dia;
+    public Consulta(String motivo, LocalDateTime dia, String comentarios, Cliente cliente, Veterinario veterinario, Animal animal) {
         this.motivo = motivo;
+        this.dia = dia;
         this.comentarios = comentarios;
-        this.animal = animal;
+        this.cliente = cliente;
         this.veterinario = veterinario;
-        this.servicos = servicos;
+        this.animal = animal;
     }
 
-    public Consulta() {
+    public Consulta(int id, String motivo, LocalDateTime dia, String comentarios, Cliente cliente, Veterinario veterinario, Animal animal) {
+        this.id = id;
+        this.motivo = motivo;
+        this.dia = dia;
+        this.comentarios = comentarios;
+        this.cliente = cliente;
+        this.veterinario = veterinario;
+        this.animal = animal;
+    }
+
+    public void adicionarServico(Servico servico) {
+        this.servicos.add(servico);
     }
 
     public int getId() {
@@ -58,7 +70,7 @@ public class Consulta {
         this.comentarios = comentarios;
     }
 
-    public Animal getAnimal() {        // <- ESSE CARA AQUI
+    public Animal getAnimal() {
         return animal;
     }
 
@@ -82,7 +94,11 @@ public class Consulta {
         this.servicos = servicos;
     }
 
-    public Consulta getCliente() {
-        return this;
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }
